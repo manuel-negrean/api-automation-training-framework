@@ -12,7 +12,8 @@ import static io.restassured.RestAssured.given;
 public class PetTests {
     private static final String BASE_URL = "https://petstore.swagger.io/v2";
     long petId = System.currentTimeMillis();
-    @Test
+
+    @Test(priority = 0)
     public void createPet(){
         log.info("Creating pet with ID: " + petId);
 
@@ -54,7 +55,7 @@ public class PetTests {
 
     }
 
-    @Test
+    @Test(priority = 0)
     public void findPetsByStatus(){
         Response response = given()
                 .baseUri(BASE_URL)
@@ -71,7 +72,7 @@ public class PetTests {
         log.info("Response: " + response.asString());
     }
 
-    @Test
+    @Test(priority = 1)
     public void findPetsById(){
         Response response = given()
                 .baseUri(BASE_URL)
@@ -88,7 +89,7 @@ public class PetTests {
         log.info("Response: " + response.asString());
     }
 
-    @Test
+    @Test(priority = 1)
     public void updatePet(){
         String requestBody = "{"
                 + "\"id\": " + petId + ","
@@ -123,7 +124,7 @@ public class PetTests {
         Assert.assertEquals(returnedName, "UpdatedDog", "Returned pet name should match the updated pet name");
     }
 
-    @Test
+    @Test(priority = 2)
     public void deletePet() {
          given()
                 .baseUri(BASE_URL)
@@ -135,7 +136,6 @@ public class PetTests {
                 .then()
                 .log().all()
                 .statusCode(200);
-
 
         given()
                 .baseUri(BASE_URL)
