@@ -13,7 +13,7 @@ public class PetTests {
     private static final String BASE_URL = "https://petstore.swagger.io/v2";
     private long petId = 42142;
 
-    @Test
+    @Test(priority = 0)
     public void createPet() {
 
         log.info("Id = " + petId);
@@ -36,6 +36,7 @@ public class PetTests {
                 .baseUri(BASE_URL)
                 .relaxedHTTPSValidation()
                 .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
                 .body(requestBody)
                 .log().all()
                 .when()
@@ -55,7 +56,7 @@ public class PetTests {
 
     }
 
-    @Test
+    @Test(priority = 1)
     public void findPetByStatus() {
         Response response = given()
                 .baseUri(BASE_URL)
@@ -69,7 +70,7 @@ public class PetTests {
                 .extract()
                 .response();
     }
-    @Test
+    @Test(priority = 2)
     public void findPetById() {
         Response response = given()
                 .baseUri(BASE_URL)
@@ -84,7 +85,7 @@ public class PetTests {
                 .response();
     }
 
-    @Test
+    @Test(priority = 3)
     public void updatePet() {
 
         log.info("Id = " + petId);
@@ -107,6 +108,7 @@ public class PetTests {
                 .baseUri(BASE_URL)
                 .relaxedHTTPSValidation()
                 .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
                 .body(updateBody)
                 .log().all()
                 .when()
@@ -119,7 +121,7 @@ public class PetTests {
 
         Assert.assertEquals(response.jsonPath().getString("name"), "UpdatedAdultDog", "The updated name was not UpdatedAdultDog");
     }
-@Test
+@Test(priority = 4)
         public void deletePet() {
             given()
                     .baseUri(BASE_URL)
