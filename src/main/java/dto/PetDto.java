@@ -31,7 +31,7 @@ public class PetDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @JsonIgnoreProperties(ignoreUnknown = true)
+//    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class CategoryDto {
         private long id;
         private String name;
@@ -43,7 +43,7 @@ public class PetDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @JsonIgnoreProperties(ignoreUnknown = true)
+//    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class TagDto {
         private long id;
         private String name;
