@@ -105,8 +105,8 @@ public class PetTests {
         Response response = given()
                 .baseUri(BASE_URL)
                 .relaxedHTTPSValidation()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
+
+
                 .body(updatedBody)
                 .log().all()
                 .when()
