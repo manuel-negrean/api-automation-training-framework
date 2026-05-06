@@ -4,22 +4,6 @@ target/
 !**/src/test/**/target/
 .kotlin
 
-# Test execution outputs
-/test-output/
-/surefire-reports/
-/allure-results/
-/allure-report/
-
-# Runtime logs
-logs/
-*.log
-
-# Local environment overrides
-.env
-.env.*
-*.local
-!.env.example
-
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
