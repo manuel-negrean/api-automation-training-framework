@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 public class PetTests {
     private static final String BASE_URL = "https://petstore.swagger.io/v2/";
     private long petId = 557;
-    @Test(priority = 1)
+    @Test
     public void createPet() {
        // long petId = System.currentTimeMillis(); // Generate a unique pet ID based on the current time
         log.info("Creating a new pet with ID: " + petId);
