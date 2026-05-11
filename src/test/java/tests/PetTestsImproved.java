@@ -29,4 +29,77 @@ public class PetTestsImproved extends BaseTest {
         PetDto createdPet = response.as(PetDto.class);
         log.info("Created pet: " + createdPet);
     }
+    
+    @Test
+    public void findPetsByStatus(){
+        Response response = given()
+                .spec(requestSpecification)
+                .queryParam("status", "available")
+                .log().all()
+                .when()
+                .get("/pet/findByStatus")
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        PetDto[] pets = response.as(PetDto[].class);
+        log.info("Found " + pets.length + " pets with status 'available'");
+    }
+
+    @Test
+    public void findPetsById(){
+        long id = 557;
+        Response response = given()
+                .spec(requestSpecification)
+                .log().all()
+                .when()
+                .get("/pet/" + id)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        PetDto pet = response.as(PetDto.class);
+        log.info("Found pet with ID " + id + ": " + pet);
+    }
+
+    @Test
+    public void updatePet(){
+        long id = 557;
+        PetDto petDto = TestDataFactory.createPet(id, "New_Azorel", new PetDto.CategoryDto(1, "CaineMare"), new PetDto.TagDto(1, "Cuminte"), "available");
+        Response response = given()
+                .spec(requestSpecification)
+                .body(petDto)
+                .log().all()
+                .when()
+                .put("/pet")
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        PetDto updatedPet = response.as(PetDto.class);
+        log.info("Updated pet: " + updatedPet);
+    }
+
+    @Test
+    public void deletePet(){
+        long id = 557;
+        Response response = given()
+                .spec(requestSpecification)
+                .log().all()
+                .when()
+                .delete("/pet/" + id)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        log.info("Deleted pet with ID " + id);
+    }
 }
