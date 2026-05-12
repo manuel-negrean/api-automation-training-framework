@@ -5,17 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static config.BaseConfig.BASE_URL;
 import static io.restassured.RestAssured.given;
 
 @Slf4j
 public class PetTests {
-    private static final String BASE_URL = "https://petstore.swagger.io/v2";
     private long petId = 42142;
 
 
     @Test
     public void createPet() {
-        log.info("Id = " + petId);
 
         String requestBody = "{"
                 + "\"id\": " + petId + ","

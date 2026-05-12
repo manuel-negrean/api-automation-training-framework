@@ -25,6 +25,11 @@ public class PetDto {
     private List<TagDto> tags;
     private String status;
 
+    public PetDto updatePetName(String updatedName) {
+        this.setName(updatedName);
+        return this;
+    }
+
     /**
      * Nested DTO for category.
      */
