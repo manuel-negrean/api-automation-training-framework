@@ -89,7 +89,7 @@ public class PetTestsImproved extends BaseTest {
     @Test
     public void deletePet(){
         long id = 557;
-        Response response = given()
+        given()
                 .spec(requestSpecification)
                 .log().all()
                 .when()
@@ -101,5 +101,15 @@ public class PetTestsImproved extends BaseTest {
                 .response();
 
         log.info("Deleted pet with ID " + id);
+
+        // Verify the pet no longer exists
+        given()
+                .spec(requestSpecification)
+                .when()
+                .get("/pet/" + id)
+                .then()
+                .statusCode(404);
+
+        log.info("Confirmed pet with ID " + id + " no longer exists");
     }
 }
