@@ -38,7 +38,7 @@ public class PetOrderChallengeTest extends BaseTest {
 
         Assert.assertEquals(createOrder.getPetId(), 123, "PetId is not correct");
         Assert.assertEquals(createOrder.getQuantity(), 3, "Incorrect quantity");
-        Assert.assertEquals(createOrder.getStatus(), true, "Incorrect status");
+        Assert.assertEquals(createOrder.getStatus(), "placed", "Incorrect status");
 
 
 
