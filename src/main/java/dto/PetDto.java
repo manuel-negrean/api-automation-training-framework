@@ -18,6 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PetDto {
+
+
     private long id;
     private CategoryDto category;
     private String name;

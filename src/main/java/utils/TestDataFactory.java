@@ -1,6 +1,7 @@
 package utils;
 
 import dto.PetDto;
+import dto.StoreOrderDto;
 
 import java.util.Collections;
 
@@ -19,6 +20,16 @@ public class TestDataFactory {
         return petDto;
     }
 
-//        Since POST and PUT requests are using the same body, I have changed
-//        the createPet method to a general createAndUpdatePetBody method that can be used for both creating and updating a pet.
+    public static StoreOrderDto createOrder(long id, long petId, int quantity, String shipDate, String status, boolean complete){
+        StoreOrderDto storeOrderDto = new StoreOrderDto();
+        storeOrderDto.setId(id);
+        storeOrderDto.setPetId(petId);
+        storeOrderDto.setQuantity(quantity);
+        storeOrderDto.setShipDate(shipDate);
+        storeOrderDto.setStatus(status);
+        storeOrderDto.setComplete(complete);
+        return storeOrderDto;
+    }
+
+
 }
