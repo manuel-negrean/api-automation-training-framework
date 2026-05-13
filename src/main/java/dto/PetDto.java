@@ -10,7 +10,7 @@ import java.util.List;
  * DTO means Data Transfer Object.
  * We use a DTO to represent request and response JSON as a Java object.
  * This keeps tests cleaner than writing raw JSON strings in every test.
- * 
+ *
  * Updated to match full Swagger Pet Store schema with nested objects and arrays.
  */
 @Data
