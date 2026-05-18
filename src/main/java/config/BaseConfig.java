@@ -9,7 +9,7 @@ public class BaseConfig {
     public static Map<String , String> getDefaultHeaders(){
         Map<String , String> headers = new HashMap<>();
         headers.put("Accept","application/json");
-        headers.put("Accept" ,"application/json");
+        headers.put("Content-Type" ,"application/json");
         return  headers;
 
     }
