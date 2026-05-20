@@ -1,8 +1,7 @@
 package tests;
 
 import base.BaseTest;
-import dto.StoreDto;
-import io.restassured.response.Response;
+import dto.StoreOrderDto;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,7 +24,7 @@ public class PetOrderInClassTest extends BaseTest {
         long petId = 108108;
         String shipDate = LocalDateTime.now().toString();
 
-        StoreDto storeDtoBuilder = StoreDto.builder()
+        StoreOrderDto storeDtoBuilder = StoreOrderDto.builder()
                 .id(orderId)
                 .petId(petId)
                 .quantity(1)
@@ -36,7 +35,7 @@ public class PetOrderInClassTest extends BaseTest {
 
         log.info("Placing store order with {} for pet {}", orderId, petId);
 
-        StoreDto createdPetOrder = given()
+        StoreOrderDto createdPetOrder = given()
                 .spec(requestSpecification)
                 .body(storeDtoBuilder)
                 .log().all()
@@ -47,7 +46,7 @@ public class PetOrderInClassTest extends BaseTest {
                 .statusCode(200)
                 .extract()
                 .response()
-                .as(StoreDto.class);
+                .as(StoreOrderDto.class);
 
         createdOrderId = createdPetOrder.getId();
         log.info("Created order with id: " + createdOrderId);
@@ -56,7 +55,7 @@ public class PetOrderInClassTest extends BaseTest {
     @Test
     public void getPetOrderTest() {
 
-        StoreDto fetchedPetOrder = given()
+        StoreOrderDto fetchedPetOrder = given()
                 .spec(requestSpecification)
                 .when()
                 .get("/store/order/{orderId}", createdOrderId)
@@ -65,7 +64,7 @@ public class PetOrderInClassTest extends BaseTest {
                 .statusCode(200)
                 .extract()
                 .response()
-                .as(StoreDto.class);
+                .as(StoreOrderDto.class);
 
         log.info("Fetched store order: {}", fetchedPetOrder);
     }
