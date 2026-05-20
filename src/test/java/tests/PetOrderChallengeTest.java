@@ -10,6 +10,7 @@ import utils.TestDataFactory;
 import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class PetOrderChallengeTest extends BaseTest {
@@ -17,12 +18,22 @@ public class PetOrderChallengeTest extends BaseTest {
     public void createPetOrder(){
       long id = System.currentTimeMillis();
       String shipDate = LocalDateTime.now().toString();
+      int petId = 123;
 
-      StoreOrderDto storeOrderDto = TestDataFactory.createOrder(id, 123, 3, shipDate, "placed", true);
+      //StoreOrderDto storeOrderDto = TestDataFactory.createOrder(id, 123, 3, shipDate, "placed", true);
 
-      Response response = given()
+      StoreOrderDto storeOrderDtoBuilder = StoreOrderDto.builder()
+              .id(id)
+              .petId(petId)
+              .quantity(2)
+              .shipDate(shipDate)
+              .status("placed")
+              .complete(true)
+              .build();
+
+        Response response = given()
         .spec(requestSpecification)
-        .body(storeOrderDto)
+        .body(storeOrderDtoBuilder)
               .log().all()
               .when()
               .post("/store/order/")
@@ -39,6 +50,8 @@ public class PetOrderChallengeTest extends BaseTest {
         Assert.assertEquals(createOrder.getPetId(), 123, "PetId is not correct");
         Assert.assertEquals(createOrder.getQuantity(), 3, "Incorrect quantity");
         Assert.assertEquals(createOrder.getStatus(), "placed", "Incorrect status");
+        Assert.assertEquals(storeOrderDtoBuilder.getId(), createOrder.getId(), "Returned order id must match the request");
+        //assertThat("");
 
 
 
