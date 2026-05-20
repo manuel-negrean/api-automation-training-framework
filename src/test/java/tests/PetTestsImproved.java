@@ -75,16 +75,14 @@ public class PetTestsImproved extends BaseTest {
 
     @Test
     public void deletePet() {
-        Response response = given()
+        given()
                 .spec(requestSpecification)
                 .log().all()
                 .when()
                 .delete("/pet/" + petId)
                 .then()
                 .log().all()
-                .statusCode(200)
-                .extract()
-                .response();
+                .statusCode(200);
          log.info("Deleted pet with id: " + petId);
     }
 }
