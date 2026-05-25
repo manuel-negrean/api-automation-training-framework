@@ -1,7 +1,7 @@
 package utils;
 
 import dto.PetDto;
-import tests.StoreOrderDto;
+import dto.StoreOrderDto;
 
 import java.util.Collections;
 import java.util.List;
