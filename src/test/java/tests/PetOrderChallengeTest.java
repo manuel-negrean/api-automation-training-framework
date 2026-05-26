@@ -11,21 +11,32 @@ import utils.TestDataFactory;
 import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class PetOrderChallengeTest extends BaseTest {
 
+    private Object storeOrderDtoBuilder;
+
     @Test
     public void createPetOrder() {
-        // Implement the test to create a pet order
-        long orderId;
-        long id = System.currentTimeMillis();
+
+        long orderId = System.currentTimeMillis();
+        long petId = orderId + 1000;
         String shipDate = LocalDateTime.now().toString();// ISO 8601 format
-        StoreOrderDto storeOrderDto = TestDataFactory.createStoreOrder(id, 5555, 1, shipDate, "placed", true);
+        //   StoreOrderDto storeOrderDto = TestDataFactory.createStoreOrder(id, 5555, 1, shipDate, "placed", true);
+        StoreOrderDto storeOrderDtoBuilder = StoreOrderDto.builder()
+                .id(orderId)
+                .petId(petId)
+                .quantity(2)
+                .shipDate(shipDate)
+                .status("placed")
+                .complete(true)
+                .build();
 
         Response response = (Response) given()
                 .spec(requestSpecification)
-                .body(storeOrderDto)
+                .body(storeOrderDtoBuilder)
                 .log().all()
                 .when()
                 .post("/store/order")
@@ -38,8 +49,13 @@ public class PetOrderChallengeTest extends BaseTest {
         StoreOrderDto createdOrder = response.as(StoreOrderDto.class);
         orderId = createdOrder.getId();
         log.info("Created order with ID: " + orderId);
-        Assert.assertEquals(createdOrder.getId(), id, "Order id is not correct");
-        Assert.assertEquals(createdOrder.getPetId(),444447);
+        Assert.assertEquals(createdOrder.getId(), orderId, "Order id is not correct");
+        Assert.assertEquals(createdOrder.getPetId(), petId, "PetId is not correct");
+        Assert.assertEquals(createdOrder.getStatus(), "placed", "Status is not correct");
+        Assert.assertEquals(createdOrder.getQuantity(), 2, "Quantity is not correct");
+        Assert.assertEquals(createdOrder.getStatus(), "placed", "Status is not correct");
+
+        //   assertThat("Quantity is not correct", createdOrder.getQuantity(), equalTo(2));
     }
 
 
