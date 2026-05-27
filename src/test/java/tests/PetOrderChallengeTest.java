@@ -4,6 +4,10 @@ package tests;
 import base.BaseTest;
 import dto.StoreOrderDto;
 import io.restassured.response.Response;
+<<<<<<< Updated upstream
+=======
+import org.hamcrest.Matcher;
+>>>>>>> Stashed changes
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.TestDataFactory;
@@ -12,7 +16,10 @@ import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 public class PetOrderChallengeTest extends BaseTest {
 
@@ -34,7 +41,28 @@ public class PetOrderChallengeTest extends BaseTest {
                 .complete(true)
                 .build();
 
+<<<<<<< Updated upstream
         Response response = (Response) given()
+=======
+        long orderId = System.currentTimeMillis();
+        long petId = orderId + 1000;
+        String shipDate = LocalDateTime.now().toString();
+//        StoreOrderDto storeOrderDto = TestDataFactory.createOrder(id,3456 ,20,shipDate,"delivered" ,true);
+
+
+        StoreOrderDto storeOrderDtoBuilder = StoreOrderDto.builder()
+                .id(orderId)
+                .petId(petId)
+                .quantity(2)
+                .shipDate(shipDate)
+                .status("placed")
+                .complete(true)
+                .build();
+
+
+
+        Response response = given()
+>>>>>>> Stashed changes
                 .spec(requestSpecification)
                 .body(storeOrderDtoBuilder)
                 .log().all()
@@ -45,6 +73,17 @@ public class PetOrderChallengeTest extends BaseTest {
                 .statusCode(200)
                 .extract()
                 .response();
+<<<<<<< Updated upstream
+=======
+
+
+        StoreOrderDto createOrder = response.as(StoreOrderDto.class);
+        log.info("Create Store Order: {} ", createOrder);
+
+        Assert.assertEquals(storeOrderDtoBuilder.getId(), createOrder.getId(), "Returned order id must match the request");
+
+//        assertThat("Returned order is must match the request" , createOrder.getId(), equalsTo(storeOrderDtoBuilder.getId()));
+>>>>>>> Stashed changes
 
         StoreOrderDto createdOrder = response.as(StoreOrderDto.class);
         orderId = createdOrder.getId();
